@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Register = ({userLoginMethod}) => {
+const Register = ({setUserLoginMethod}) => {
     const goToSignUp = (e) => {
         e.preventDefault();
-        userLoginMethod("login");
+        setUserLoginMethod("login");
     };
     return (
         <form method="post">
