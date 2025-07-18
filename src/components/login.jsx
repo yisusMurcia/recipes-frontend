@@ -24,7 +24,7 @@ const Login = ({setUserLoginMethod}) => {
         <input type="text" id="username" name="username" required/>
         <label htmlFor="password">Y tu contraseña para verificarte</label>
         <input type="password" id="password" name="password" required/>
-        <input type='submit' id="login-btn" value= "Confirmo quien soy" />
+        <input type='submit'value= "Confirmo quien soy" />
         <span>Sin cuenta, no te preocupes, <button onClick={e=>goToLogin(e)}>Registrate aquí</button></span>
     </form>
     );
