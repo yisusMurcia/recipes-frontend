@@ -16,10 +16,20 @@ const Register = ({setUserLoginMethod}) => {
             userRol: e.target.userRol.value,
             adminPassword: e.target.adminPassword.value
         };
-        console.log("Register DTO:", registerDto);
-        const user = await RegisterUser(registerDto).then(user => {
-            console.log("Registration successful:", user);
-        });
+        const user = await RegisterUser(registerDto).then(user => 
+            console.log(user)
+        );
+
+    }
+
+    //Enable/disable admin password field based on user role selection
+    const handleRoleChange = (e) => {
+        const adminPasswordField = document.getElementById("adminPassword");
+        if (e.target.value === "admin") {
+            adminPasswordField.disabled = false;
+        } else {
+            adminPasswordField.disabled = true;
+        }
     }
     return (
         <form method="post" onSubmit={handleRegister}>
@@ -31,7 +41,7 @@ const Register = ({setUserLoginMethod}) => {
         <input type="password" id="password" name="password" required/>
 
         <label htmlFor="userRol">Selecciona tu rol</label>
-        <select name="userRol" id="userRol">
+        <select name="userRol" id="userRol" onChange={handleRoleChange}>
             <option value="user">Usuario</option>
             <option value="admin">Administrador</option>
         </select>
