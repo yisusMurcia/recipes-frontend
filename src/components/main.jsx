@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Main = () => {
+const Main = ({user}) => {
     return (
         <>
             <header>
-                <h1>Bienvenido a la aplicación de recetas</h1>
+                <h1> Bienvenid@ {user.username} a la aplicación de recetas</h1>
             </header>
         </>
     );

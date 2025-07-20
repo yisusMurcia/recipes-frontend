@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      {user? <Main />:<IdentifyUser setUser={setUser} />}
+      {user? <Main user={user} />:<IdentifyUser setUser={setUser} />}
     </>
   )
 }
