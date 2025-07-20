@@ -1,7 +1,7 @@
 import React from 'react';
 import RegisterUser from '../api/register';
 
-const Register = ({setUserLoginMethod}) => {
+const Register = ({setUserLoginMethod, setUser}) => {
     const goToSignUp = (e) => {
         e.preventDefault();
         setUserLoginMethod("login");
@@ -18,6 +18,7 @@ const Register = ({setUserLoginMethod}) => {
         };
         const user = await RegisterUser(registerDto).then(user =>{ 
                 if(typeof user === 'object') {//Check if is created sucesfully
+                    setUser(user); // Set user state
                 }
         }
         );
