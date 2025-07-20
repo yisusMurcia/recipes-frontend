@@ -16,8 +16,10 @@ const Register = ({setUserLoginMethod}) => {
             userRol: e.target.userRol.value,
             adminPassword: e.target.adminPassword.value
         };
-        const user = await RegisterUser(registerDto).then(user => 
-            console.log(user)
+        const user = await RegisterUser(registerDto).then(user =>{ 
+                if(typeof user === 'object') {//Check if is created sucesfully
+                }
+        }
         );
 
     }
