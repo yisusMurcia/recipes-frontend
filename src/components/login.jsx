@@ -13,7 +13,6 @@ const Login = ({setUserLoginMethod, setUser}) => {
             username: e.target.username.value,
             password: e.target.password.value
         };
-        console.log("Login DTO:", loginDto);
         const user = await LoginUser(loginDto).then(user => {
                 if(typeof user === 'object') { // Check if login was successful
                     console.log("Login successful:", user);
