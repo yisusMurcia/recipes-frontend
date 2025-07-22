@@ -7,7 +7,6 @@ const Main = ({user}) => {
 
     const saveRecipes = async()=>{
         await getAllRecipes().then(recipes=> {
-            console.log(recipes)
             setRecipes(recipes)})
     }
 
@@ -21,7 +20,7 @@ const Main = ({user}) => {
             
              {
                 //Cargar las recetas
-                recipes? recipes.map(recipe=> <RecipeCard recipe={recipe}/>): null
+                recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} key={recipe.id}/>): null
              }
         </>
     );
