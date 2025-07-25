@@ -1,5 +1,5 @@
-export async function getAllRecipes(){
-    try{const response = await fetch(`http://localhost:8080/api/recipes/all?page=0&size=3`,{
+export async function getAllRecipes(page = 0){
+    try{const response = await fetch(`http://localhost:8080/api/recipes/all?page=${page}&size=3`,{
             method: 'GET'
         }
         )
@@ -12,9 +12,9 @@ export async function getAllRecipes(){
     }
 }
 
-export async function getRecipeByUserId(userId){
+export async function getRecipeByUserId(userId, page= 0){
     try{
-        const response = await fetch(`http://localhost:8080/api/recipes/user-recipes/${userId}?page=0&size=3`,
+        const response = await fetch(`http://localhost:8080/api/recipes/user-recipes/${userId}?page=${page}&size=3`,
             {method: "GET"}
         )
 
@@ -26,16 +26,14 @@ export async function getRecipeByUserId(userId){
     }
 }
 
-export async function getFavRecipes(userId) {
+export async function getFavRecipes(userId, page = 0) {
     try{
-        const response = await fetch(`http://localhost:8080/api/recipes/fav-recipes/${userId}?page=0&size=3`,
+        const response = await fetch(`http://localhost:8080/api/recipes/fav-recipes/${userId}?page=${page}&size=3`,
             {method: "GET"}
         )
 
         if(response.ok){
             return await response.json();
-        }else{
-            return null
         }
     }catch(e){
         console.log(e)

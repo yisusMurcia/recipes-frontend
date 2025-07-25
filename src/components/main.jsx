@@ -19,11 +19,20 @@ const Main = ({user}) => {
                 <NavRecipes saveRecipes={saveRecipes} userId={user.id}  />
             </header>
 
-            
              {
                 //Cargar las recetas
                 recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} key={recipe.id}/>): null
              }
+
+             <div>
+                <buttton>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </buttton>
+                <buttton>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </buttton>
+             </div>
+
         </>
     );
 }
