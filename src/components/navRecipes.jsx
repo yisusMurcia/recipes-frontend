@@ -1,17 +1,20 @@
 import React from 'react';
 import { getAllRecipes, getRecipeByUserId, getFavRecipes } from '../api/recipes';
 
-const NavRecipes = ({saveRecipes, userId}) => {
+const NavRecipes = ({setAsyncFunc, userId, setPage}) => {
     const handleAllBtn= async()=>{
-        await saveRecipes(getAllRecipes);
+        setPage(0)
+        await setAsyncFunc(()=>(page)=>getAllRecipes(page));
     }
 
     const handleFavBtn = async()=>{
-        await saveRecipes(()=>getFavRecipes(userId));
+        setPage(0)
+        await setAsyncFunc(()=>(page) =>getFavRecipes(userId, page));
     }
 
     const handleUserBtn = async()=>{
-        await saveRecipes(()=>getRecipeByUserId(userId));
+        setPage(0)
+        await setAsyncFunc(()=>(page)=>getRecipeByUserId(userId, page));
     }
 
     return (
