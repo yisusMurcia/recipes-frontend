@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { getAllRecipes } from '../api/recipes';
+import { getAllRecipes, getTotalPages } from '../api/recipes';
 import RecipeCard from './recipeCard';
 import NavRecipes from './navRecipes';
 
 const RecipesDiv = ({userId}) => {
     const [recipes, setRecipes] = useState();
     const [asyncFunc, setAsyncFunc] = useState(()=>(page)=>getAllRecipes(page));
-    let [page, setPage] = useState(0)
+    const [page, setPage] = useState(0)
+    const [totalPages, setTotalPages] = useState();
 
     const getRecipes = async () => {
         const data = await asyncFunc(page);
@@ -15,9 +16,26 @@ const RecipesDiv = ({userId}) => {
 
     //When setted a new asyncFunc, the page´ll be 0
     useEffect(()=>{
+        const beforeBtn = document.getElementById("before-btn");
+        const afterBtn = document.getElementById("after-btn");
+
+        //Enable the buttons
+        beforeBtn.disabled = false;
+        afterBtn.disabled = false;
+
         getRecipes()
+        if(page == 0){
+            beforeBtn.disabled = true;
+        }else if(page+1 >= totalPages){
+            afterBtn.disabled = true;
+        }
     }, [asyncFunc, page])
 
+    useEffect(()=> async()=>{
+        const newtotalPages = await getTotalPages();
+        setTotalPages(newtotalPages);
+        console.log(totalPages)
+    }, [asyncFunc])
 
     const incrementPage =()=>{setPage(page+1)
     }
@@ -34,10 +52,10 @@ const RecipesDiv = ({userId}) => {
                 }
             </div>
              <nav>
-                <button onClick={decrementPage}>
+                <button id='before-btn' onClick={decrementPage}>
                     <i className="fa-solid fa-arrow-left"></i>
                 </button>
-                <button onClick={incrementPage}>
+                <button id='after-btn' onClick={incrementPage}>
                     <i className="fa-solid fa-arrow-right"></i>
                 </button>
              </nav>

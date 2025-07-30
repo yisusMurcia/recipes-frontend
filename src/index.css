@@ -202,3 +202,7 @@ nav ul {
     justify-content: space-around;
     gap: 1rem;
 }
+
+button:disabled{
+    opacity: 0.5;
+}

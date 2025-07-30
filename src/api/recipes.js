@@ -39,3 +39,14 @@ export async function getFavRecipes(userId, page = 0) {
         console.log(e)
     }   
 }
+
+export async function getTotalPages(){
+    try{
+        const response = await fetch(`http://localhost:8080/api/recipes/total-pages`)
+        if(response.ok){
+            return await response.json();
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
