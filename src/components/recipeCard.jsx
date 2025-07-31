@@ -1,7 +1,34 @@
-import React from 'react';
+import { useState, useEffect } from "react";
+import { isFav} from "../api/recipes";
+import { markAsFav, deletFromFav } from "../api/user";
 
 
-const RecipeCard = ({recipe}) => {
+const RecipeCard = ({recipe, userId}) => {
+    const [isLiked, setIsLiked] = useState();
+
+    const markAsFavorite= async()=>{
+        const response = await markAsFav(recipe.id, userId);
+        setIsLiked(true);
+    }
+
+    const markAsNotFave= async ()=>{
+        const response = await deletFromFav(recipe.id, userId);
+        setIsLiked(false);
+    }
+
+    useEffect(()=>{
+        isFav(recipe.id, userId).then((res) => {
+            setIsLiked(res);
+        });
+    }, [isLiked])
+
+    const handleLike = () => {
+        if (isLiked) {
+            markAsNotFave();
+        }else{
+            markAsFavorite();
+        }
+    }
     return (
         <div className="recipe bg-white p-6 rounded-lg shadow-md flex flex-col">
             <p className="recipe_title text-2xl font-semibold text-gray-800 mb-3"><b>{recipe.title}</b></p>
@@ -24,7 +51,10 @@ const RecipeCard = ({recipe}) => {
             </ul>
             <p className="text-lg font-medium text-gray-700 mb-2"><b>Instrucciones:</b></p>
             <p className="recipe_instructions text-gray-600 leading-relaxed">{recipe.instructions}</p>
-            <button id="edit-recipe1">
+            <button onClick={handleLike}>
+                <i className={`fa-${isLiked?"solid":"regular"} fa-heart`}></i>
+            </button>
+            <button id="edit-recipe">
                 <i className="fas fa-edit"></i>
             </button>
         </div>

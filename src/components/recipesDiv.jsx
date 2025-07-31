@@ -48,7 +48,7 @@ const RecipesDiv = ({userId}) => {
             <div>
                 {
                     //Cargar las recetas
-                    recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} key={recipe.id}/>): null
+                    recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} userId={userId} key={recipe.id}/>): null
                 }
             </div>
              <nav>

@@ -50,3 +50,14 @@ export async function getTotalPages(){
         console.log(e)
     }
 }
+
+export async function isFav(recipeId, userId) {
+    try{
+        const response = await fetch(`http://localhost:8080/api/recipes/${recipeId}/isFav/${userId}`)
+        if(response.ok){
+            return await response.json();
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
