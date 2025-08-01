@@ -10,13 +10,14 @@ const Main = ({user}) => {
             setRecipes(recipes)})
     }
 
-    useEffect(()=>{saveRecipes(getAllRecipes)}, [])
+    useEffect(()=>{saveRecipes(getAllRecipes);
+    }, [])
     return (
         <>
             <header>
                 <h1> Bienvenid@ {user.username} a la aplicación de recetas</h1>
             </header>
-            <RecipesDiv userId={user.id} />
+            <RecipesDiv user={user} />
         </>
     );
 }

@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { getAllRecipes, getTotalPages } from '../api/recipes';
 import RecipeCard from './recipeCard';
 import NavRecipes from './navRecipes';
+import NoContent from './noContent';
 
-const RecipesDiv = ({userId}) => {
+const RecipesDiv = ({user}) => {
     const [recipes, setRecipes] = useState();
     const [asyncFunc, setAsyncFunc] = useState(()=>(page)=>getAllRecipes(page));
     const [page, setPage] = useState(0)
@@ -34,7 +35,6 @@ const RecipesDiv = ({userId}) => {
     useEffect(()=> async()=>{
         const newtotalPages = await getTotalPages();
         setTotalPages(newtotalPages);
-        console.log(totalPages)
     }, [asyncFunc])
 
     const incrementPage =()=>{setPage(page+1)
@@ -44,11 +44,11 @@ const RecipesDiv = ({userId}) => {
     }
     return (
         <section>
-            <NavRecipes setAsyncFunc={setAsyncFunc} userId={userId} setPage={setPage} />
+            <NavRecipes setAsyncFunc={setAsyncFunc} userId={user.id} setPage={setPage} />
             <div>
                 {
                     //Cargar las recetas
-                    recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} userId={userId} key={recipe.id}/>): null
+                    recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} user={user} key={recipe.id}/>): <NoContent />
                 }
             </div>
              <nav>

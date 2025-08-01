@@ -3,21 +3,21 @@ import { isFav} from "../api/recipes";
 import { markAsFav, deletFromFav } from "../api/user";
 
 
-const RecipeCard = ({recipe, userId}) => {
+const RecipeCard = ({recipe, user}) => {
     const [isLiked, setIsLiked] = useState();
 
     const markAsFavorite= async()=>{
-        const response = await markAsFav(recipe.id, userId);
+        const response = await markAsFav(recipe.id, user.id);
         setIsLiked(true);
     }
 
     const markAsNotFave= async ()=>{
-        const response = await deletFromFav(recipe.id, userId);
+        const response = await deletFromFav(recipe.id, user.id);
         setIsLiked(false);
     }
 
     useEffect(()=>{
-        isFav(recipe.id, userId).then((res) => {
+        isFav(recipe.id, user.id).then((res) => {
             setIsLiked(res);
         });
     }, [isLiked])
@@ -29,6 +29,13 @@ const RecipeCard = ({recipe, userId}) => {
             markAsFavorite();
         }
     }
+
+    useEffect(()=>{
+        const editBtn = document.getElementById(`edit-recipe-${recipe.id}`);
+        if(recipe.userId != user.id && user.userRol == "USER"){
+            editBtn.disabled = true;
+        }
+    }, [])
     return (
         <div className="recipe bg-white p-6 rounded-lg shadow-md flex flex-col">
             <p className="recipe_title text-2xl font-semibold text-gray-800 mb-3"><b>{recipe.title}</b></p>
@@ -54,7 +61,7 @@ const RecipeCard = ({recipe, userId}) => {
             <button onClick={handleLike}>
                 <i className={`fa-${isLiked?"solid":"regular"} fa-heart`}></i>
             </button>
-            <button id="edit-recipe">
+            <button id={`edit-recipe-${recipe.id}`}>
                 <i className="fas fa-edit"></i>
             </button>
         </div>
