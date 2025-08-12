@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getFoodIntentions, getFoodTypes } from '../api/foodData';
 
-const Recipe = () => {
+const Recipe = ({user}) => {
     const [foodIntentions, setFoodIntentions] = useState([]);
     const [foodTypes, setFoodTypes] = useState([]);
 
@@ -13,6 +13,25 @@ const Recipe = () => {
     useEffect(()=>{
         loadData()
     }, [])
+
+    const createRecipe= ()=>{
+        // Selecciona todos los checkboxes dentro del fieldset con la clase "food_type"
+        const foodTypeCheckboxes = document.querySelectorAll('.food_type input[type="checkbox"]:checked');
+        // Crea un array a partir de los nodos seleccionados y mapea sus valores
+        const foodIntentionCheckboxes = document.querySelectorAll('.food_intention input[type="checkbox"]:checked');
+
+        const recipeDto = {
+            id: null,
+            title: document.getElementById("name").value,
+            ingredients: document.getElementById("ingredients").value,
+            instructions: document.getElementById("instructions").value,
+            foodIntentions: Array.from(foodIntentionCheckboxes).map(checkbox => checkbox.value),
+            foodTypes: Array.from(foodTypeCheckboxes).map(checkbox => checkbox.value),
+            userId: user.id
+        }
+
+        console.log(recipeDto);
+    }
     return (
         <form  className="recipe_form">
         <label htmlFor="name">Nombre de la receta:</label>
@@ -29,7 +48,7 @@ const Recipe = () => {
                 {foodIntentions.map(foodIntention=>
                     <>
                         <input type="checkbox" name="intentions" value={foodIntention} id={foodIntention} />
-                        <label for={foodIntention}>{foodIntention}</label>
+                        <label htmlFor={foodIntention}>{foodIntention}</label>
                     </>)}
             </fieldset>
 
@@ -39,7 +58,7 @@ const Recipe = () => {
                 {foodTypes.map(foodType=> 
                     <>
                         <input type="checkbox" name="intentions" value={foodType} id={foodType} />
-                        <label for={foodType}>{foodType}</label>
+                        <label htmlFor={foodType}>{foodType}</label>
                     </>
                 )}
 
@@ -50,7 +69,7 @@ const Recipe = () => {
         <label htmlFor="instructions">Instrucciones:</label>
         <textarea id="instructions" name="instructions" rows="4" required placeholder="Ej. 1. Mezclar todos los secos&#10 2. Mezclar los líquidos e integrar&#10 3. Hornear en un molde"></textarea>
 
-        <button className="submit_btn" id="create-btn">Crear Receta</button>
+        <button className="submit_btn" id="create-btn" onClick={createRecipe}>Crear Receta</button>
     </form>
     );
 }
