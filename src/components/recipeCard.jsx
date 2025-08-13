@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { isFav} from "../api/recipes";
 import { markAsFav, deletFromFav } from "../api/user";
+import { useNavigate } from "react-router-dom";
 
 
 const RecipeCard = ({recipe, user}) => {
     const [isLiked, setIsLiked] = useState();
-
+    const navigate = useNavigate();
     const markAsFavorite= async()=>{
         const response = await markAsFav(recipe.id, user.id);
         setIsLiked(true);
@@ -29,13 +30,6 @@ const RecipeCard = ({recipe, user}) => {
             markAsFavorite();
         }
     }
-
-    useEffect(()=>{
-        const editBtn = document.getElementById(`edit-recipe-${recipe.id}`);
-        if(recipe.userId != user.id && user.userRol == "USER"){
-            editBtn.disabled = true;
-        }
-    }, [])
     return (
         <div className="recipe bg-white p-6 rounded-lg shadow-md flex flex-col">
             <p className="recipe_title text-2xl font-semibold text-gray-800 mb-3"><b>{recipe.title}</b></p>
@@ -61,9 +55,13 @@ const RecipeCard = ({recipe, user}) => {
             <button onClick={handleLike}>
                 <i className={`fa-${isLiked?"solid":"regular"} fa-heart`}></i>
             </button>
-            <button id={`edit-recipe-${recipe.id}`}>
-                <i className="fas fa-edit"></i>
-            </button>
+            {
+                recipe.userId == user.id || user.userRol == "ADMIN" ? 
+                    <button onClick={()=>{navigate("/edit", {state: recipe})}}>
+                        <i className="fas fa-edit"></i>
+                    </button>
+                :null
+            }
         </div>
     );
 }

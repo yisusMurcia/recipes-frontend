@@ -12,6 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={user? <Main user={user} />:<IdentifyUser setUser={setUser} />} />
       <Route path='/new' element={<Recipe user={user}/>}/>
+      <Route path='/edit' element={<Recipe user={user} />}/>
     </Routes>
   )
 }
