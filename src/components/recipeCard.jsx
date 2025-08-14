@@ -42,13 +42,13 @@ const RecipeCard = ({recipe, user}) => {
             <p className="text-lg font-medium text-gray-700 mb-2"><b>Etiquetas:</b></p>
             <ul className="recipe_tags flex flex-wrap gap-2 mb-4">
     
-                {recipe.foodTypes.map(tag =>
+                {recipe.foodTypes.length!= 0? recipe.foodTypes.map(tag =>
                     <li key={tag} className="bg-blue-200 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">{tag}</li>
-                )}
+                ): null}
                 
-                {recipe.foodIntentions.map(tag =>
+                {recipe.foodIntentions.length!= 0?recipe.foodIntentions.map(tag =>
                     <li key={tag} className="bg-green-200 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">{tag}</li>
-                )}
+                ): null}
             </ul>
             <p className="text-lg font-medium text-gray-700 mb-2"><b>Instrucciones:</b></p>
             <p className="recipe_instructions text-gray-600 leading-relaxed">{recipe.instructions}</p>

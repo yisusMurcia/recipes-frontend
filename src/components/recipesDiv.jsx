@@ -45,7 +45,7 @@ const RecipesDiv = ({user}) => {
     return (
         <section>
             <NavRecipes setAsyncFunc={setAsyncFunc} userId={user.id} setPage={setPage} />
-            <div>
+            <div className='recipe-container'>
                 {
                     //Cargar las recetas
                     recipes? recipes.map(recipe=> <RecipeCard recipe={recipe} user={user} key={recipe.id}/>): <NoContent />

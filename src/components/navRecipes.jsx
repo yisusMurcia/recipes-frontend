@@ -19,9 +19,12 @@ const NavRecipes = ({setAsyncFunc, userId, setPage}) => {
 
     return (
         <nav>
-           <li><button onClick={handleAllBtn}>Todas</button></li>
-           <li><button onClick={handleFavBtn}>Favoritas</button></li>
-           <li><button onClick={handleUserBtn}>Mias</button></li>
+            <ul>
+                <li><button onClick={handleAllBtn}>Todas</button></li>
+                <li><button onClick={handleFavBtn}>Favoritas</button></li>
+                <li><button onClick={handleUserBtn}>Mias</button></li>
+
+            </ul>
         </nav>
     );
 }

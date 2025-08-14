@@ -24,16 +24,10 @@ h1,h2,h3{
     color: #322318;
 }
 
-.recipe {
-    background-color: #d6c59b;
-    border-radius: 0.8rem;
-    padding: 1rem;
-    margin: 0.7rem;
-}
-
 .recipe-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 0.5em;
 }
 
 form{
@@ -77,24 +71,21 @@ button {
     all: unset; /* reinicia todos los estilos heredados del navegador */
     background-color: #d6c59b;
     padding: 0.5rem;
-    border: solid 2px #3e2c1f;
     border-radius: 10px;
     color: #322318;
     font-family: "Sour Gummy", sans-serif;
     text-align: center;
-    display: inline-block;
     cursor: pointer;
 }
 button:hover {
     background-color: #c5a975;
     color: #322318;
-    cursor: pointer;
-    border: solid 2px #322318;
+    border: solid 2px #806544;
     padding: calc(0.5rem - 2px);
 }
 button:active {
     border: 3px solid #322318;
-    padding: calc(0.5rem - 5px);
+    padding: calc(0.5rem - 3px);
 }
 
 #edit-recipe {
@@ -130,6 +121,7 @@ button:active {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
     display: flex; /* flex */
     flex-direction: column; /* flex-col */
+    align-content: center;
 }
 
 /* Título de la receta (.recipe_title) */
@@ -193,7 +185,8 @@ button:active {
 
 nav {
     padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: #322318;
 }
 
 nav ul {
@@ -205,4 +198,115 @@ nav ul {
 
 button:disabled{
     opacity: 0.5;
+}
+
+textarea{
+    border-radius: 5px;
+    border: solid 2px #322318;
+    background-color: #f3efe1;
+    font-family: "Sour Gummy", sans-serif;
+    width: 85%;
+    height: 55px;
+    text-align: center;
+}
+
+input[type="text"]{
+    border-radius: 5px;
+    border: solid 2px #322318;
+    background-color: #f3efe1;
+    font-family: "Sour Gummy", sans-serif;
+    width: 85%;
+    height: 25px;
+    text-align: center;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none; /* Elimina el borde de enfoque por defecto del navegador */
+    border-color: #8e6740; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 0 2.5px rgba(142, 103, 64, 0.3); /* Un suave brillo */
+}
+
+input[type="text"]:hover,
+textarea:hover {
+    border-color: #5e4530; /* Un color de borde más oscuro al pasar el ratón */
+}
+
+.submit_btn {
+    border-radius: 5px;
+    border: solid 2px #322318;
+    background-color: #8e6740;
+    font-family: "Sour Gummy", sans-serif;
+    padding: 0.5rem;
+}
+.submit_btn:hover {
+    background-color: #9b7249;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+::placeholder {
+    color: #c5a975;
+    font-family: "Sour Gummy", sans-serif;
+}
+
+fieldset {
+    border: solid 2px #322318;
+    background-color: #f3efe1;
+    margin: 1rem 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 0.6rem;
+    width: 85%;
+    accent-color: #b89257;
+    flex: 1;
+}
+
+fieldset label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-family: "Sour Gummy", sans-serif;
+    color: #5e4530;
+    border: #e4d8bc solid 0.15rem;
+    background-color: #e6dcc2;
+    border-radius: 0.5rem;
+}
+
+fieldset label:hover {
+    border: #beae85 solid 0.15rem;
+}
+
+fieldset input[type="checkbox"]{
+    appearance: none;
+}
+
+.food_type input[type="checkbox"]:checked + label {
+    background-color: #977252;
+    color: #f3efe1;
+    border: #977252 solid 0.15rem;
+}
+.food_intention input[type="checkbox"]:checked + label {
+    background-color: #b38752;
+    color: #f3efe1;
+    border: #b38752 solid 0.15rem;
+}
+
+.recipe_characteristics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 85%;
+    gap: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .recipe_characteristics {
+        flex-direction: column;
+        width: 85%;
+    }
+
+    fieldset {
+        grid-template-columns: 1fr; /* 1 columna en móviles */
+    }
 }
