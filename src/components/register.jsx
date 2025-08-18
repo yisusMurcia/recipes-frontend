@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RegisterUser from '../api/register';
+import { useNavigate } from 'react-router-dom';
 
-const Register = ({setUserLoginMethod, setUser}) => {
-    const goToSignUp = (e) => {
-        e.preventDefault();
-        setUserLoginMethod("login");
-    };
-
+const Register = ({setUser}) => {
+    const navigate = useNavigate();
+    const [selectAdmin, setSelectAdmin] = useState(false);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -24,19 +22,8 @@ const Register = ({setUserLoginMethod, setUser}) => {
         );
 
     }
-
-    //Enable/disable admin password field based on user role selection
-    const handleRoleChange = (e) => {
-        const adminPasswordField = document.getElementById("adminPassword");
-        if (e.target.value === "admin") {
-            adminPasswordField.disabled = false;
-        } else {
-            adminPasswordField.disabled = true;
-        }
-    }
     return (
         <form method="post" onSubmit={handleRegister}>
-        <span class="error-message"></span>
         <label htmlFor="username">Tu nombre de usuario</label>
         <input type="text" id="username" name="username" required/>
 
@@ -44,15 +31,18 @@ const Register = ({setUserLoginMethod, setUser}) => {
         <input type="password" id="password" name="password" required/>
 
         <label htmlFor="userRol">Selecciona tu rol</label>
-        <select name="userRol" id="userRol" onChange={handleRoleChange}>
+        <select name="userRol" id="userRol" onChange={e=>setSelectAdmin(e.target.value=="admin")}>
             <option value="user">Usuario</option>
             <option value="admin">Administrador</option>
         </select>
-        <label htmlFor="adminPassword">Tu clave de administrador</label>
-        <input type="password" id="adminPassword" name="adminPassword"  required disabled/>
+        {selectAdmin?<>
+            <label htmlFor="adminPassword">Tu clave de administrador</label>
+            <input type="password" id="adminPassword" name="adminPassword"  required disabled/>
+        </>: null}
+
         <input type='submit' id="sign-up-btn" value="Registrarme" />
         
-        <span>Ya tienes cuenta, no hay problema, <button onClick={e=> goToSignUp(e)}>Inicia sesión aquí</button></span>
+        <span>Ya tienes cuenta, no hay problema, <button onClick={()=>navigate("/sign-in")}>Inicia sesión aquí</button></span>
     </form>
     );
 }

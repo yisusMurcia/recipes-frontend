@@ -1,11 +1,9 @@
 import React from 'react';
 import LoginUser from '../api/login';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({setUserLoginMethod, setUser}) => {
-    const goToLogin = (e) => {
-        e.preventDefault();
-        setUserLoginMethod("register");
-    };
+const Login = ({setUser}) => {
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -26,7 +24,7 @@ const Login = ({setUserLoginMethod, setUser}) => {
         <label htmlFor="password">Y tu contraseña para verificarte</label>
         <input type="password" id="password" name="password" required/>
         <input type='submit'value= "Confirmo quien soy" />
-        <span>Sin cuenta, no te preocupes, <button onClick={e=>goToLogin(e)}>Registrate aquí</button></span>
+        <span>Sin cuenta, no te preocupes, <button onClick={()=>navigate("/sign-up")}>Registrate aquí</button></span>
     </form>
     );
 }

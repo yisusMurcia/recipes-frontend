@@ -4,19 +4,23 @@ import RecipesDiv from './recipesDiv';
 import { useNavigate } from 'react-router-dom';
 
 const Main = ({user}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [recipes, setRecipes] = useState();
 
     const saveRecipes = async(asyncFunc)=>{
         await asyncFunc().then(recipes=> {
             setRecipes(recipes)})
     }
-    useEffect(()=>{saveRecipes(getAllRecipes);
+    useEffect(()=>{
+        if(!user){
+            navigate("/sign-in");
+        }
+        saveRecipes(getAllRecipes);
     }, [])
     return (
         <>
             <header>
-                <h1> Bienvenid@ {user.username} a la aplicación de recetas</h1>
+                <h1> Bienvenid@ {user?user.username: null} a la aplicación de recetas</h1>
             </header>
             <RecipesDiv user={user} />
             <button id="new-recipe" onClick={()=>navigate("/new")}>

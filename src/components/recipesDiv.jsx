@@ -44,7 +44,7 @@ const RecipesDiv = ({user}) => {
     }
     return (
         <section>
-            <NavRecipes setAsyncFunc={setAsyncFunc} userId={user.id} setPage={setPage} />
+            <NavRecipes setAsyncFunc={setAsyncFunc} userId={user?user.id:null} setPage={setPage} />
             <div className='recipe-container'>
                 {
                     //Cargar las recetas
